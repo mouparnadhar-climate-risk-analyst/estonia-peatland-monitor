@@ -2,8 +2,11 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from data_pipeline import get_satellite_data
+from data_pipeline import get_satellite_data, authenticate_gee
 from risk_scoring import calculate_restoration_score
+
+# --- AUTHENTICATE GEE ON APP STARTUP ---
+authenticate_gee() # ADDED THIS LINE
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(page_title="Selisoo Restoration Monitor", layout="wide", page_icon="🌲")
