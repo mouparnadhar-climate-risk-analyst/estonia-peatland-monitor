@@ -1,54 +1,37 @@
 import ee
 import streamlit as st
 import base64
-import json
-from google.oauth2.credentials import Credentials
+import os
 
 def authenticate_gee():
-    """Authenticates GEE with error reporting for Streamlit Cloud."""
-    
-    # CASE 1: We are on Streamlit Cloud (Secrets exist)
-    if "gee" in st.secrets:
-        try:
-            # 1. Get the secrets
-            private_key_data = st.secrets["gee"]["private_key_data"]
-            project_id = st.secrets["gee"]["project_id"]
-            
-            # 2. Decode the Base64 string
-            try:
-                decoded_json = json.loads(base64.b64decode(private_key_data))
-            except Exception as e:
-                st.error(f"⚠️ Secret Decoding Failed. Your 'private_key_data' might be cut off or formatted wrong. Error: {e}")
-                st.stop()
+    """
+    NUCLEAR OPTION: Recreates your local credentials file on the Cloud Server.
+    """
+    try:
+        # 1. Decode the secret key string
+        encoded_key = st.secrets["gee"]["private_key_data"]
+        decoded_key = base64.b64decode(encoded_key).decode("utf-8")
+        project_id = st.secrets["gee"]["project_id"]
 
-            # 3. Create Credentials
-            # We use .get() to avoid crashing if a key is missing
-            creds = Credentials(
-                None,
-                refresh_token=decoded_json.get('refresh_token'),
-                token_uri="https://oauth2.googleapis.com/token",
-                client_id=decoded_json.get('client_id'),
-                client_secret=decoded_json.get('client_secret')
-            )
-            
-            # 4. Initialize Earth Engine
-            ee.Initialize(credentials=creds, project=project_id)
-            print("✅ GEE Authenticated via Streamlit Cloud Secrets!")
-            
-        except Exception as e:
-            # If this fails, we PRINT the error to the app so you can see it
-            st.error(f"⚠️ Cloud Authentication Error: {e}")
-            st.warning("Please check your Streamlit Cloud Secrets format.")
-            st.stop() # Stop the app so it doesn't crash with the other error
+        # 2. Force-create the credentials file on the server
+        # This mimics exactly what you have on your laptop at ~/.config/earthengine/credentials
+        home_dir = os.path.expanduser("~")
+        gee_config_dir = os.path.join(home_dir, ".config", "earthengine")
+        os.makedirs(gee_config_dir, exist_ok=True)
+        
+        credentials_path = os.path.join(gee_config_dir, "credentials")
+        
+        with open(credentials_path, "w") as f:
+            f.write(decoded_key)
 
-    # CASE 2: We are on Localhost (No secrets found)
-    else:
-        try:
-            ee.Initialize()
-            print("✅ GEE Authenticated via Local Credentials.")
-        except Exception as e:
-            st.error(f"⚠️ Local Authentication Failed: {e}")
-            st.stop()
+        # 3. Initialize normally (Now it finds the file!)
+        ee.Initialize(project=project_id)
+        print("✅ GEE Authenticated via File Injection!")
+
+    except Exception as e:
+        # Fallback for local testing if secrets don't exist
+        print(f"Cloud Auth failed ({e}). Trying local...")
+        ee.Initialize()
 
 def get_satellite_data(lat, lon, peatland_id):
     """
@@ -61,7 +44,6 @@ def get_satellite_data(lat, lon, peatland_id):
     
     for year in years:
         try:
-            # Sentinel-2 (Optical)
             s2_col = (ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
                 .filterBounds(area)
                 .filterDate(f'{year}-06-01', f'{year}-08-31')
@@ -71,7 +53,6 @@ def get_satellite_data(lat, lon, peatland_id):
             ndvi = s2_col.normalizedDifference(['B8', 'B4']).rename('NDVI')
             ndwi = s2_col.normalizedDifference(['B3', 'B8']).rename('NDWI')
             
-            # Sentinel-1 (Radar)
             s1_col = (ee.ImageCollection('COPERNICUS/S1_GRD')
                 .filterBounds(area)
                 .filter(ee.Filter.eq('instrumentMode', 'IW'))
@@ -94,6 +75,6 @@ def get_satellite_data(lat, lon, peatland_id):
                 'sar_vv': round(stats.get('VV', -20), 2)
             })
         except Exception as e:
-            print(f"Error processing {year} for {peatland_id}: {e}")
+            print(f"Error processing {year}: {e}")
             
     return results
