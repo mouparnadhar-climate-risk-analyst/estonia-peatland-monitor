@@ -1,6 +1,6 @@
 # 🌲 Selisoo Bog Restoration Monitor (Estonia)
 
-### 🛰️ Live Dashboard: [Click Here to View App](https://share.streamlit.io/mouparnadhar-climate-risk-analyst/estonia-peatland-monitor/main/app.py)
+### 🛰️ Live Dashboard: [Click Here to View App](https://huggingface.co/spaces/mouparnadhar-climate-risk-analyst/estonia-peatland-monitor)
 
 **A satellite-based automated monitoring system for the 2,051-hectare Selisoo Bog in Alutaguse National Park, aligned with the EU Nature Restoration Law (2024).**
 
