@@ -51,7 +51,7 @@ def get_satellite_data(lat, lon, peatland_id):
     # (Your existing code here)
     point = ee.Geometry.Point([lon, lat])
     area = point.buffer(100)
-    years = [2017, 2019, 2021, 2024]
+    years = [2019, 2021, 2023, 2025]
     results = []
     
     for year in years:

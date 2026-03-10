@@ -44,7 +44,7 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 # --- HEADER ---
 st.title("🌲 Selisoo Bog Restoration Monitor")
 st.markdown("**Alutaguse National Park | Live Satellite Feed: Sentinel-1 (SAR) & Sentinel-2 (Optical)**")
-st.markdown("Monitoring the hydrological recovery of the 2,051 ha Selisoo Bog following the 2024-2025 interventions.")
+st.markdown("Monitoring the ongoing hydrological recovery of the 2,051 ha Selisoo Bog following the recent restoration interventions.")
 st.markdown("---")
 
 # --- SIDEBAR & DATA LOADING ---
@@ -129,7 +129,7 @@ if 'results' in st.session_state:
     st.markdown("<br>", unsafe_allow_html=True)
 
     # 2. TOP ROW: MAPS & PIE CHART
-    st.subheader("🛰️ Spatial Analysis (2024 Current State)")
+    st.subheader("🛰️ Spatial Analysis (2026 Current State)")
     map_col, pie_col = st.columns([2, 1])
     
     colors = {'Restored': '#2ca02c', 'Recovering': '#1f77b4', 'Partially Degraded': '#ff7f0e', 'Severely Degraded': '#d62728'}
@@ -219,7 +219,7 @@ if 'results' in st.session_state:
                                            yaxis='y2'))
             
             fig_trend.update_layout(
-                title=f"Recovery Trajectory: {selected_point}",
+                title=f"Recovery Trajectory: {selected_point} (Historical to Present)",
                 xaxis=dict(title="", tickmode='linear', dtick=1, gridcolor='rgba(255,255,255,0.1)', tickfont=dict(color='white')),
                 yaxis=dict(
                     title=dict(text="NDVI", font=dict(color="#2ca02c")), 
