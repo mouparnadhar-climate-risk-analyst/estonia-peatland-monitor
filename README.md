@@ -1,35 +1,36 @@
-# 🌲 Selisoo Bog Restoration Monitor (Estonia)
+# 🌍 Alutaguse Peatland: Earth Observation (EO) Asset Monitoring & Risk Analytics
 
-### 🛰️ Live Dashboard: [Click Here to View App](https://huggingface.co/spaces/mouparnadhar-climate-risk-analyst/estonia-peatland-monitor)
+### 🛰️ Live Enterprise Dashboard: [Click Here to View App](https://huggingface.co/spaces/mouparnadhar-climate-risk-analyst/estonia-peatland-monitor)
 
-**A satellite-based automated monitoring system for the 2,051-hectare Selisoo Bog in Alutaguse National Park, aligned with the EU Nature Restoration Law (2024).**
+**A strategic biodiversity audit and carbon risk framework for the 2,051-hectare Selisoo Bog, engineered for EU Nature Restoration Law and CSRD (ESRS E4) compliance.**
 
 ![Dashboard Screenshot](dashboard.png)
 
-## 🌍 The Problem
-Estonia must restore 30% of its drained peatlands by 2030 (EU Nature Restoration Law). Traditional monitoring requires expensive manual field surveys. The Selisoo Bog, located near critical oil shale mining operations, requires constant hydrological monitoring to ensure restoration success.
+## 📊 The Business Case
+Under the EU Nature Restoration Law, Estonia is mandated to restore 30% of its drained peatlands by 2030. Traditional field auditing is expensive, unscalable, and lacks historical context. Furthermore, under the Corporate Sustainability Reporting Directive (CSRD), degraded peatlands represent severe financial carbon liabilities. Stakeholders require an automated, auditable "Digital Twin" to verify intervention success and quantify risk mitigation.
 
-## 🛠️ The Solution
-I built a Python-based automated dashboard that uses **Google Earth Engine (GEE)** to analyze 10 years of satellite data instantly.
+## 🛠️ The Engineering Solution
+I engineered an automated Python-based monitoring engine using the **Google Earth Engine (GEE) API**. By fusing multi-spectral optical data, synthetic aperture radar, and meteorological datasets, this platform moves beyond simple mapping to provide **Causal Attribution** and **Predictive Forecasting**.
 
-*   **Vegetation Health:** Sentinel-2 Optical Data (NDVI) to detect Sphagnum moss recovery.
-*   **Soil Moisture:** Sentinel-1 Radar (SAR) to see water tables through clouds.
-*   **Financial Risk:** Calculates Carbon Liability (€) based on CSRD emission factors.
+## 🚀 Core Capabilities
+1. **Climate Decoupling Analysis:** Cross-references **ERA5-Land** precipitation with **Sentinel-1 SAR** moisture data to statistically prove that rising water tables are the result of structural ditch-blocking interventions, not just seasonal rainfall anomalies.
+2. **Predictive 2030 Trajectory:** Utilises linear regression on historical EO data (2019–2025) to forecast whether specific bog sectors will achieve the legal EU health benchmark (NDVI >0.60) by the 2030 deadline.
+3. **Dynamic Financial Stress Testing:** Features an interactive scenario modeller to stress-test the asset against volatile EU ETS carbon pricing (€40–€180/tonne), instantly quantifying mitigated financial exposure.
+4. **Multi-Sensor Spatial Verification:** An interactive map stack assessing:
+   * **Vegetation Vigor:** Sentinel-2 Optical (NDVI)
+   * **Sub-Surface Hydrology:** Sentinel-1 Radar (SAR VV)
+   * **Wildfire Ignition Risk:** Sentinel-2 Canopy Moisture (NDMI)
+5. **Audit-Ready Export:** One-click generation of ESRS-compliant CSV logs for third-party environmental auditors.
 
-## 💻 Tech Stack
-*   **Remote Sensing:** Google Earth Engine (Python API), Sentinel-1, Sentinel-2
-*   **Backend:** Python, Pandas, NumPy
-*   **Frontend:** Streamlit, Plotly (Interactive Maps & Charts)
-*   **Deployment:** Streamlit Cloud (CI/CD via GitHub)
-
-## 📊 Key Features
-1.  **3-Layer Interactive Map:** Toggle between Restoration Status, Vegetation, and Moisture.
-2.  **Automated Risk Scoring:** Algorithms classify sites as *Restored*, *Recovering*, or *Degraded*.
-3.  **10-Year Time-Series:** Dual-axis charts showing historical recovery trends (2017-2024).
-4.  **CSRD Financial Modeling:** Estimates carbon sequestration loss in Euros.
+## 💻 Tech Stack & Architecture
+* **Earth Observation:** Google Earth Engine (GEE), Copernicus Sentinel-1 & 2, ECMWF ERA5-Land
+* **Data Science:** Python, Pandas, NumPy (Polyfit logic)
+* **Frontend Visualisation:** Streamlit, Plotly Express, Plotly Graph Objects (Dual-Axis plotting)
+* **Deployment:** Hugging Face Spaces (Containerised via Docker)
 
 ## 📄 Documentation
-[Download the Methodology Report (PDF)](Selisoo_Restoration_Report.pdf) inside the app.
+A comprehensive methodology detailing the remote sensing parameters, financial modelling logic, and 2026 Audit Findings is embedded within the live application.
+* 👉 **[Download the Strategic Audit Report (PDF)](Selisoo_Restoration_Report.pdf)** directly from the GitHub repository or the live app.
 
 ---
-*Created by Mouparna Dhar | Climate Risk Analyst*
+*Architected and Developed by **Mouparna Dhar** | Climate Risk Analyst*
